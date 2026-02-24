@@ -7,7 +7,7 @@ use App\Models\siswa;
 use App\Models\admin;
 use App\Models\penjual;
 use App\Models\produk;
-use App\Models\kategori;
+use App\Models\Kategori;
 use App\Models\transaksi;
 use App\Models\keranjang;
 use App\Models\nis;
