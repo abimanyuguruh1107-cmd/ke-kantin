@@ -9,7 +9,7 @@ use App\Models\penjual;
 use App\Models\produk;
 use App\Models\Kategori;
 use App\Models\transaksi;
-use App\Models\keranjang;
+use App\Models\Keranjang;
 use App\Models\nis;
 
 class halamanController extends Controller

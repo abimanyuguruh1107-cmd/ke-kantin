@@ -340,7 +340,7 @@ public function indexSearch()
         ->limit(5)
         ->get();
 
-    return view('search.index', compact('siswa','produk'));
+    return view('Search.index', compact('siswa','produk'));
 }
 
 // Daftar menu kantin
