@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Super User Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+}
+
+/* LAYOUT */
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    width: 250px;
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.active {
+    background-color: #334155;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+}
+
+.sidebar ul li a:hover {
+    color: white;
+}
+
+
+/* ================= MAIN ================= */
+.main {
+    flex: 1;
+    padding: 30px;
+}
+
+/* HEADER */
+.header {
+    margin-bottom: 30px;
+}
+
+/* TOGGLE BUTTON */
+.menu-toggle {
+    display: none;
+    background: #1e293b;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+/* CARDS */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 10px;
+}
+
+.card h2 {
+    font-size: 22px;
+}
+
+/* TABLE */
+.table-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    overflow-x: auto;
+}
+
+.table-container h2 {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+}
+
+table thead {
+    background: #1e293b;
+    color: white;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+}
+
+table tbody tr:nth-child(even) {
+    background: #f1f5f9;
+}
+
+/* OVERLAY */
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 998;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+    .app {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        height: 100%;
+        z-index: 999;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .menu-toggle {
+        display: inline-block;
+    }
+
+    .main {
+        padding: 20px;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+        <h2>SUPER USER</h2>
+        <ul>
+            <li class="active">
+                <a href="">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="{{ route('super_user.manajemen_kantin') }}">Manajemen Kantin</a>
+            </li>
+
+            <li>
+                <a href="{{ route('super_user.siswa') }}">Siswa</a>
+            </li>
+            
+            <li>
+                <a href="{{ route('super_user.produk') }}">Produk</a>
+            </li>
+            
+            <li>
+                <a href="{{ route('super_user.riwayat_transaksi') }}">Riwayat Semua Pembelian</a>
+            </li>
+
+            <li>
+                <a href="{{ route('super_user.laporan') }}">Laporan</a>
+            </li>
+
+            <li>
+                <a href="{{ route('super_user.data_admin') }}">Daftar admin</a>
+            </li>
+
+            <li>
+                <form action="{{ route('admin.logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" style="all:unset; cursor:pointer; width:100%;">
+                        Logout
+                    </button>
+                </form>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- OVERLAY -->
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+
+        <button class="menu-toggle" onclick="toggleSidebar()">☰ Menu</button>
+
+        <div class="header">
+            <h1>Dashboard</h1>
+            <p>Ringkasan Sistem KE-Kantin Hari Ini</p>
+        </div>
+
+        <!-- CARD SUMMARY -->
+        <div class="cards">
+            <div class="card">
+                <h3>Total Kantin Aktif</h3>
+                <h2>{{ $jumlahOnline }} / {{ $totalKantin }}</h2>
+            </div>
+            <div class="card">
+                <h3>Total Transaksi</h3>
+                <h2>{{ $totaltransaksi }} Transaksi</h2>
+            </div>
+            <div class="card">
+                <h3>Total Siswa</h3>
+                <h2>{{ $totalSiswa }} Siswa</h2>
+            </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-container">
+            <h2>Rekap Total Pendapatan Kantin (Hari Ini)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Kantin</th>
+                        <th>Total Pendapatan Hari Ini</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($kantin as $key => $data)
+                <tr>
+                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $data->nama }}</td>
+                    <td>
+                        Rp {{ number_format($data->total_hari_ini ?? 0, 0, ',', '.') }}
+                    </td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+}
+
+function closeSidebar() {
+    document.getElementById("sidebar").classList.remove("active");
+    document.getElementById("overlay").classList.remove("active");
+}
+</script>
+
+</body>
+</html>

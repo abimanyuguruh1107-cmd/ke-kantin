@@ -1,0 +1,65 @@
+/* ===== SEARCH PAGE ===== */
+
+#page-search {
+    padding: 30px 40px;
+}
+
+/* SEARCH BOX */
+.search-box {
+    margin-bottom: 25px;
+}
+
+.search-box input {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px 18px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: #f2f4f7;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.search-box input:focus {
+    background: #ffffff;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+}
+
+/* MENU GRID */
+.menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+/* CARD */
+.menu-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+}
+
+.menu-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+/* IMAGE */
+.menu-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+/* TEXT */
+.menu-card p {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+}
