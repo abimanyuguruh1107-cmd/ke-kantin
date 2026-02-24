@@ -21,7 +21,7 @@ class produk extends Model
     // Relasi ke Penjual
     public function penjual()
     {
-        return $this->belongsTo(Penjual::class, 'id_penjual');
+        return $this->belongsTo(penjual::class, 'id_penjual');
     }
     
 

@@ -40,6 +40,6 @@ class penjual extends Model
 
     public function produk()
 {
-    return $this->hasMany(Produk::class, 'id_penjual');
+    return $this->hasMany(produk::class, 'id_penjual');
 }
 }
