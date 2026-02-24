@@ -370,7 +370,7 @@ public function tambahkeranjan(Request $request)
 
     if (!$produk) return back();
 
-    $cek = Keranjang::where('siswa_id', $siswa_id)
+    $cek = keranjang::where('siswa_id', $siswa_id)
         ->where('produk_id', $produk->id)
         ->first();
 
