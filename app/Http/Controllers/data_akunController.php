@@ -10,7 +10,7 @@ use App\Models\admin;
 use App\Models\penjual;
 use App\Models\Kategori;
 use App\Models\produk;
-use App\Models\keranjang;
+use App\Models\Keranjang;
 use App\Models\transaksi;
 use App\Models\detail;
 use Illuminate\Support\Facades\DB;
@@ -370,7 +370,7 @@ public function tambahkeranjan(Request $request)
 
     if (!$produk) return back();
 
-    $cek = keranjang::where('siswa_id', $siswa_id)
+    $cek = Keranjang::where('siswa_id', $siswa_id)
         ->where('produk_id', $produk->id)
         ->first();
 
