@@ -297,7 +297,7 @@ class data_akunController extends Controller
     ]);
 
     // ✅ ambil produk
-    $produk = Produk::findOrFail($id);
+    $produk = produk::findOrFail($id);
 
     // ⚠️ OPTIONAL tapi SANGAT DISARANKAN (security)
     // pastikan produk milik penjual yang login
@@ -348,9 +348,9 @@ public function daftarMenuKantin()
 {
     $kantinId = session('kantin_id');
 
-    $kantin = Penjual::find($kantinId);
+    $kantin = penjual::find($kantinId);
 
-    $produk = Produk::with('kategori')
+    $produk = produk::with('kategori')
         ->where('id_penjual', $kantinId)
         ->get();
 
@@ -359,7 +359,7 @@ public function daftarMenuKantin()
 
 public function destroyProduk($id)
 {
-    Produk::findOrFail($id)->delete();
+    produk::findOrFail($id)->delete();
     return redirect()->back()->with('success','Menu berhasil dihapus');
 }
 
