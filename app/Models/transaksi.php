@@ -25,7 +25,7 @@ class transaksi extends Model
      */
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class, 'id_siswa');
+        return $this->belongsTo(siswa::class, 'id_siswa');
     }
 
     /*
@@ -33,7 +33,7 @@ class transaksi extends Model
      */
     public function penjual()
     {
-        return $this->belongsTo(Penjual::class, 'id_penjual');
+        return $this->belongsTo(penjual::class, 'id_penjual');
     }
 
     /*
