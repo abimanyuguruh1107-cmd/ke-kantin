@@ -23,7 +23,7 @@ class detail extends Model
      */
     public function transaksi()
     {
-        return $this->belongsTo(Transaksi::class, 'id_transaksi');
+        return $this->belongsTo(transaksi::class, 'id_transaksi');
     }
 
     /*
@@ -31,6 +31,6 @@ class detail extends Model
      */
     public function produk()
     {
-        return $this->belongsTo(Produk::class, 'id_produk');
+        return $this->belongsTo(produk::class, 'id_produk');
     }
 }
