@@ -215,24 +215,24 @@ Rp {{ number_format($item->harga,0,',','.') }}
 <td data-label="Aksi" style="display:flex; gap:8px; flex-wrap:wrap;">
 
   <!-- ✅ EDIT -->
-  <a href="{{ route('kantin.menu.edit', $item->id) }}"
-     style="background:#3b82f6;color:white;padding:6px 12px;border-radius:8px;text-decoration:none;font-size:13px;">
-     Edit
-  </a>
+  <button type="button"
+    onclick="openEditModal(
+      {{ $item->id }},
+      '{{ $item->kategori->nama_produk ?? '-' }}',
+      {{ $item->harga }},
+      {{ $item->stok }}
+    )"
+    style="background:#3b82f6;color:white;padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:13px;">
+    Edit
+  </button>
 
-  <!-- ✅ DELETE -->
+  <!-- HAPUS -->
   <form action="{{ route('kantin.menu.delete',$item->id) }}" method="POST">
     @csrf
     @method('DELETE')
-    <button type="button"
-      onclick="openEditModal(
-        {{ $item->id }},
-        '{{ $item->kategori->nama_produk ?? '-' }}',
-        {{ $item->harga }},
-        {{ $item->stok }}
-      )"
-      style="background:#3b82f6;color:white;padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:13px;">
-      Edit
+    <button type="submit"
+      style="background:#ef4444;color:white;padding:6px 12px;border:none;border-radius:8px;cursor:pointer;font-size:13px;">
+      Hapus
     </button>
   </form>
 
