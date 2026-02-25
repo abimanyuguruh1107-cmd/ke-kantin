@@ -258,12 +258,11 @@ class data_akunController extends Controller
         $kategori = Kategori::findOrFail($id);
 
         // hapus detail transaksi dulu
-        foreach($kategori->produk as $produk) {
-            detail::where('id_produk', $produk->id)->delete();
-        }
+        $produkIds = Produk::where('kategori_id', $id)->pluck('id');
+        detail::whereIn('id_produk', $produkIds)->delete();
 
-        // hapus produk yang pakai kategori ini
-        $kategori->produk()->delete();
+        // hapus produk
+        Produk::where('kategori_id', $id)->delete();
 
         // hapus gambar
         if($kategori->gambar && Storage::disk('public')->exists($kategori->gambar)){
