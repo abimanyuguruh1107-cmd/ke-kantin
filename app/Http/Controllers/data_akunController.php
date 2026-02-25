@@ -359,7 +359,14 @@ public function daftarMenuKantin()
 
 public function destroyProduk($id)
 {
-    produk::findOrFail($id)->delete();
+    $produk = produk::findOrFail($id);
+    
+    // hapus detail transaksi dulu
+    detail::where('id_produk', $id)->delete();
+    
+    // baru hapus produk
+    $produk->delete();
+    
     return redirect()->back()->with('success','Menu berhasil dihapus');
 }
 
