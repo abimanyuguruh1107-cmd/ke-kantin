@@ -366,7 +366,7 @@ public function destroyProduk($id)
 public function tambahkeranjan(Request $request)
 {
     $siswa_id = session('siswa_id');
-    $produk = Produk::find($request->produk_id);
+    $produk = produk::find($request->produk_id);
 
     if (!$produk) return back();
 
