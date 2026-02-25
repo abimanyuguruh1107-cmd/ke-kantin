@@ -257,12 +257,20 @@ class data_akunController extends Controller
     {
         $kategori = Kategori::findOrFail($id);
 
-        // Hapus file gambar jika ada
+        // hapus detail transaksi dulu
+        foreach($kategori->produk as $produk) {
+            detail::where('id_produk', $produk->id)->delete();
+        }
+
+        // hapus produk yang pakai kategori ini
+        $kategori->produk()->delete();
+
+        // hapus gambar
         if($kategori->gambar && Storage::disk('public')->exists($kategori->gambar)){
             Storage::disk('public')->delete($kategori->gambar);
         }
 
-        // Hapus data dari database
+        // hapus kategori
         $kategori->delete();
 
         return redirect()->back()->with('success', 'Kategori berhasil dihapus');
