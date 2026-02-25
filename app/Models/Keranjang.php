@@ -18,13 +18,13 @@ class Keranjang extends Model
 
     public function produk()
     {
-        return $this->belongsTo(Produk::class, 'produk_id');
+        return $this->belongsTo(produk::class, 'produk_id');
     }
 
 
     public function siswa()
     {
-        return $this->belongsTo(Siswa::class);
+        return $this->belongsTo(siswa::class);
     }
 }
 
